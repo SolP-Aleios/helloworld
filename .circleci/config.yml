@@ -41,11 +41,3 @@ jobs:
           paths:
             - node_modules
           key: dependencies-cache-{{ checksum "package.json" }}
-  aws-cli-cred-setup:
-    executor: aws-cli/default
-    steps:
-      - aws-cli/setup:
-          aws-access-key-id: AWS_ACCESS_KEY
-          aws-secret-access-key: AWS_ACCESS_SECRET
-          aws-region: AWS_REGION_NAME
-        
