@@ -3,6 +3,8 @@
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 #
 version: 2
+orbs:
+  aws-cli: circleci/aws-cli@2.0.6
 jobs:
   build:
     working_directory: ~/hello-world-ci
@@ -41,4 +43,16 @@ jobs:
           paths:
             - node_modules
           key: dependencies-cache-{{ checksum "package.json" }}
+  aws-cli-cred-setup:
+    executor: aws-cli/default
+    steps:
+      - aws-cli/setup:
+          aws-access-key-id: AWS_ACCESS_KEY
+          aws-secret-access-key: AWS_ACCESS_SECRET
+          aws-region: AWS_REGION_NAME
+workflows:
+  aws-cli:
+    jobs:
+      - aws-cli-cred-setup:
+          context: aws
         
